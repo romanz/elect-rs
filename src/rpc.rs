@@ -1,3 +1,5 @@
+use crate::sync::mpsc::{self, Receiver, Sender, SyncSender, TrySendError};
+use crate::sync::{Arc, Mutex};
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::consensus::encode::{deserialize, serialize};
 use bitcoin::hashes::hex::{FromHex, ToHex};
@@ -7,8 +9,6 @@ use serde_json::{from_str, Value};
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Write};
 use std::net::{Shutdown, SocketAddr, TcpListener, TcpStream};
-use std::sync::mpsc::{self, Receiver, Sender, SyncSender, TrySendError};
-use std::sync::{Arc, Mutex};
 use std::thread;
 
 use crate::errors::*;

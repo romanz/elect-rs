@@ -1,3 +1,4 @@
+use crate::sync::{Arc, RwLock};
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::consensus::encode::deserialize;
 use bitcoin::hash_types::{BlockHash, TxMerkleNode, Txid};
@@ -7,7 +8,6 @@ use bitcoin::hashes::Hash;
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;
-use std::sync::{Arc, RwLock};
 
 use crate::app::App;
 use crate::cache::TransactionCache;

@@ -5,12 +5,12 @@ extern crate error_chain;
 #[macro_use]
 extern crate log;
 
+use electrs::sync::Arc;
 use electrs::{
     cache::BlockTxIDsCache, config::Config, daemon::Daemon, errors::*, fake::FakeStore,
     index::Index, metrics::Metrics, signal::Waiter,
 };
 use error_chain::ChainedError;
-use std::sync::Arc;
 
 fn run() -> Result<()> {
     let signal = Waiter::start();

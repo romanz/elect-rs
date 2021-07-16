@@ -1,3 +1,4 @@
+use crate::sync::Arc;
 use bitcoin::network::constants::Network;
 use dirs_next::home_dir;
 use std::convert::TryInto;
@@ -8,7 +9,6 @@ use std::net::SocketAddr;
 use std::net::ToSocketAddrs;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
-use std::sync::Arc;
 use std::time::Duration;
 
 use crate::daemon::CookieGetter;

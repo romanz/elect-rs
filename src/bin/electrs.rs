@@ -4,9 +4,9 @@ extern crate error_chain;
 #[macro_use]
 extern crate log;
 
+use electrs::sync::Arc;
 use error_chain::ChainedError;
 use std::process;
-use std::sync::Arc;
 
 use electrs::{
     app::App,

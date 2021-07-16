@@ -1,9 +1,9 @@
+use crate::sync::Mutex;
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::hash_types::Txid;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::iter::FromIterator;
 use std::ops::Bound;
-use std::sync::Mutex;
 
 use crate::daemon::{Daemon, MempoolEntry};
 use crate::errors::*;

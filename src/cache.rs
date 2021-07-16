@@ -1,13 +1,13 @@
 use crate::errors::*;
 use crate::metrics::{CounterVec, MetricOpts, Metrics};
 
+use crate::sync::Mutex;
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::consensus::encode::deserialize;
 use bitcoin::hash_types::{BlockHash, Txid};
 use lru::LruCache;
 use prometheus::IntGauge;
 use std::hash::Hash;
-use std::sync::Mutex;
 
 struct SizedLruCache<K, V> {
     map: LruCache<K, (V, usize)>,

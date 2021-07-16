@@ -1,3 +1,4 @@
+use crate::sync::mpsc::{channel, sync_channel, Receiver, Sender, SyncSender};
 use bitcoin::blockdata::block::BlockHeader;
 use bitcoin::hash_types::BlockHash;
 use std::collections::HashMap;
@@ -5,7 +6,6 @@ use std::convert::TryInto;
 use std::fmt;
 use std::iter::FromIterator;
 use std::slice;
-use std::sync::mpsc::{channel, sync_channel, Receiver, Sender, SyncSender};
 use std::thread;
 
 pub type Bytes = Vec<u8>;

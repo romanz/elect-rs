@@ -1,3 +1,7 @@
+use crate::sync::{
+    mpsc::{Receiver, SyncSender},
+    Arc, Mutex,
+};
 use bitcoin::blockdata::block::Block;
 use bitcoin::consensus::encode::{deserialize, Decodable};
 use bitcoin::hash_types::BlockHash;
@@ -5,10 +9,6 @@ use std::collections::HashSet;
 use std::fs;
 use std::io::Cursor;
 use std::path::{Path, PathBuf};
-use std::sync::{
-    mpsc::{Receiver, SyncSender},
-    Arc, Mutex,
-};
 use std::thread;
 
 use crate::daemon::Daemon;

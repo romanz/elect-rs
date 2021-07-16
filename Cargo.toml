@@ -20,6 +20,7 @@ lto = true
 
 [features]
 default = ["rocksdb/snappy", "rocksdb/lz4", "rocksdb/zstd", "rocksdb/zlib", "rocksdb/bzip2"]
+detect_deadlocks = ["parking_lot/deadlock_detection"]
 
 [dependencies]
 base64 = "0.10"
@@ -48,6 +49,7 @@ stderrlog = "0.5.1"
 sysconf = ">=0.3.4"
 time = "0.1"
 tiny_http = "0.6"
+parking_lot = "0.11.1"
 
 [build-dependencies]
 configure_me_codegen = "0.4.0"

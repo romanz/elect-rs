@@ -7,7 +7,7 @@ use bitcoin::network::socket::Socket;
 use bitcoin::hash_types::Txid;
 use bitcoin::util::Error;
 
-use std::sync::mpsc::Sender;
+use crate::sync::mpsc::Sender;
 use std::thread;
 use std::time::Duration;
 

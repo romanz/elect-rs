@@ -1,3 +1,5 @@
+use crate::sync::atomic::{AtomicU64, Ordering};
+use crate::sync::{Arc, Mutex};
 use bitcoin::blockdata::block::{Block, BlockHeader};
 use bitcoin::blockdata::transaction::Transaction;
 use bitcoin::consensus::encode::{deserialize, serialize};
@@ -10,8 +12,6 @@ use std::collections::{HashMap, HashSet};
 use std::io::{BufRead, BufReader, Lines, Write};
 use std::net::{SocketAddr, TcpStream};
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use crate::cache::BlockTxIDsCache;
