@@ -20,6 +20,7 @@ lto = true
 
 [features]
 default = ["rocksdb/snappy", "rocksdb/lz4", "rocksdb/zstd", "rocksdb/zlib", "rocksdb/bzip2"]
+no_default_config_files = []
 
 [dependencies]
 base64 = "0.10"

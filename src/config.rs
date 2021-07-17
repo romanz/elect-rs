@@ -195,23 +195,29 @@ fn select_auth(auth: Option<String>, cookie: Option<String>) -> Option<String> {
     }
 }
 
+#[cfg(feature = "no_default_config_files")]
+fn default_config_files() -> Vec<OsString> {
+    vec![]
+}
+
+#[cfg(not(feature = "no_default_config_files"))]
+fn default_config_files() -> Vec<OsString> {
+    let system_config = OsString::from("/etc/electrs/config.toml");
+    let cwd_config = OsString::from("electrs.toml");
+    let mut paths = vec![system_config, cwd_config];
+    home_dir().map(|mut home_dir| {
+        home_dir.extend(&[".electrs", "config.toml"]);
+        paths.push(home_dir.into_os_string());
+    });
+    paths
+}
+
 impl Config {
     /// Parses args, env vars, config files and post-processes them
     pub fn from_args() -> Config {
         use internal::ResultExt;
 
-        let system_config: &OsStr = "/etc/electrs/config.toml".as_ref();
-        let home_config = home_dir().map(|mut dir| {
-            dir.extend(&[".electrs", "config.toml"]);
-            dir
-        });
-        let cwd_config: &OsStr = "electrs.toml".as_ref();
-        let configs = std::iter::once(cwd_config)
-            .chain(home_config.as_ref().map(AsRef::as_ref))
-            .chain(std::iter::once(system_config));
-
-        let (mut config, _) =
-            internal::Config::including_optional_config_files(configs).unwrap_or_exit();
+        let (mut config, _) = internal::Config::including_optional_config_files(default_config_files()).unwrap_or_exit();
 
         let db_subdir = match config.network {
             // We must keep the name "mainnet" due to backwards compatibility
