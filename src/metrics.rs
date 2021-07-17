@@ -104,13 +104,24 @@ struct Stats {
     fds: usize,
 }
 
+#[cfg(feature="sysconf")]
+fn ticks_per_second() -> Result<f64> {
+    sysconf::raw::sysconf(sysconf::raw::SysconfVariable::ScClkTck)
+        .map_err(|_| "failed to get _SC_CLK_TCK".into())
+        .map(|x| x as f64)
+}
+
+#[cfg(not(feature="sysconf"))]
+fn ticks_per_second() -> Result<f64> {
+    Err("could not get _SC_CLK_TCK - not built with `--features sysconf`".into())
+}
+
 fn parse_stats() -> Result<Stats> {
     let value =
         fs::read_to_string("/proc/self/stat").chain_err(|| "failed to read /proc/self/stat")?;
     let parts: Vec<&str> = value.split_whitespace().collect();
     let page_size = page_size::get() as u64;
-    let ticks_per_second = sysconf::raw::sysconf(sysconf::raw::SysconfVariable::ScClkTck)
-        .expect("failed to get _SC_CLK_TCK") as f64;
+    let ticks_per_second = ticks_per_second()?;
 
     let parse_part = |index: usize, name: &str| -> Result<u64> {
         Ok(parts
